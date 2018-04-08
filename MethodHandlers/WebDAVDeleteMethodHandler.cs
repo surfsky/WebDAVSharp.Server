@@ -37,10 +37,10 @@ namespace WebDAVSharp.Server.MethodHandlers
         public void ProcessRequest(WebDavServer server, IHttpListenerContext context, IWebDavStore store)
         {
             // Get the parent collection of the item
-            IWebDavStoreCollection collection = GetParentCollection(server, store, context.Request.Url);
+            var collection = GetParentCollection(server, store, context.Request.Url);
 
             // Get the item from the collection
-            IWebDavStoreItem item = GetItemFromCollection(collection, context.Request.Url);
+            var item = GetItemFromCollection(collection, context.Request.Url);
 
             // Deletes the item
             collection.Delete(item);

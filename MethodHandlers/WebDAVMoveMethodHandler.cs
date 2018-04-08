@@ -59,13 +59,13 @@ namespace WebDAVSharp.Server.MethodHandlers
         private void MoveItem(WebDavServer server, IHttpListenerContext context, IWebDavStore store,
             IWebDavStoreItem sourceWebDavStoreItem)
         {
-            Uri destinationUri = GetDestinationHeader(context.Request);
-            IWebDavStoreCollection destinationParentCollection = GetParentCollection(server, store, destinationUri);
+            var destinationUri = GetDestinationHeader(context.Request);
+            var destinationParentCollection = GetParentCollection(server, store, destinationUri);
 
-            bool isNew = true;
+            var isNew = true;
 
-            string destinationName = Uri.UnescapeDataString(destinationUri.Segments.Last().TrimEnd('/', '\\'));
-            IWebDavStoreItem destination = destinationParentCollection.GetItemByName(destinationName);
+            var destinationName = Uri.UnescapeDataString(destinationUri.Segments.Last().TrimEnd('/', '\\'));
+            var destination = destinationParentCollection.GetItemByName(destinationName);
             if (destination != null)
             {
                 if (sourceWebDavStoreItem.ItemPath == destination.ItemPath)

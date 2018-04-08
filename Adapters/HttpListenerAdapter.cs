@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Threading;
+using WebDAVSharp.Server.Adapters;
 
 namespace WebDAVSharp.Server.Adapters
 {
@@ -16,14 +17,11 @@ namespace WebDAVSharp.Server.Adapters
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpListenerAdapter" /> class.
         /// </summary>
-        internal HttpListenerAdapter()
+        internal HttpListenerAdapter() => _listener = new HttpListener
         {
-            _listener = new HttpListener
-            {
-                AuthenticationSchemes = AuthenticationSchemes.Negotiate,
-                UnsafeConnectionNtlmAuthentication = false
-            };
-        }
+            AuthenticationSchemes = AuthenticationSchemes.Negotiate,
+            UnsafeConnectionNtlmAuthentication = false
+        };
 
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources
@@ -57,10 +55,10 @@ namespace WebDAVSharp.Server.Adapters
             if (abortEvent == null)
                 throw new ArgumentNullException("abortEvent");
 
-            IAsyncResult ar = _listener.BeginGetContext(null, null);
-            int index = WaitHandle.WaitAny(new[] {abortEvent, ar.AsyncWaitHandle});
+            var ar = _listener.BeginGetContext(null, null);
+            var index = WaitHandle.WaitAny(new[] {abortEvent, ar.AsyncWaitHandle});
             if (index != 1) return null;
-            HttpListenerContext context = _listener.EndGetContext(ar);
+            var context = _listener.EndGetContext(ar);
             return new HttpListenerContextAdapter(context);
         }
 

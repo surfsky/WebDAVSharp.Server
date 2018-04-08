@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Net;
-using System.Web;
 using WebDAVSharp.Server.Adapters;
 using WebDAVSharp.Server.Exceptions;
 using WebDAVSharp.Server.Stores;
@@ -31,8 +30,8 @@ namespace WebDAVSharp.Server
             if (uri.Segments.Length == 1)
                 throw new InvalidOperationException("Cannot get parent of root");
 
-            string url = uri.ToString();
-            int index = url.Length - 1;
+            var url = uri.ToString();
+            var index = url.Length - 1;
             if (url[index] == '/')
                 index--;
             while (url[index] != '/')
@@ -53,7 +52,7 @@ namespace WebDAVSharp.Server
                 throw new ArgumentNullException("context");
 
             context.Response.StatusCode = (int)statusCode;
-            context.Response.StatusDescription = HttpWorkerRequest.GetStatusDescription((int)statusCode);
+            context.Response.StatusDescription = ((HttpStatusCode)statusCode).ToString(); ;
             context.Response.Close();
         }
 
@@ -71,9 +70,9 @@ namespace WebDAVSharp.Server
         /// <exception cref="WebDavInternalServerException"><paramref name="uri" /> specifies a <see cref="Uri" /> that is not known to the <paramref name="server" />.</exception>
         public static Uri GetPrefixUri(this Uri uri, WebDavServer server)
         {
-            string url = uri.ToString();
+            var url = uri.ToString();
             foreach (
-                string prefix in
+                var prefix in
                     server.Listener.Prefixes.Where(
                         prefix => url.StartsWith(uri.ToString(), StringComparison.OrdinalIgnoreCase)))
                 return new Uri(prefix);
@@ -112,16 +111,16 @@ namespace WebDAVSharp.Server
                 throw new ArgumentNullException("store");
 
             Uri prefixUri = uri.GetPrefixUri(server);
-            IWebDavStoreCollection collection = store.Root;
+            var collection = store.Root;
 
             IWebDavStoreItem item = null;
             if (prefixUri.Segments.Length == uri.Segments.Length)
                 return collection;
             
-            for (int index = prefixUri.Segments.Length; index < uri.Segments.Length; index++)
+            for (var index = prefixUri.Segments.Length; index < uri.Segments.Length; index++)
             {
-                string segmentName = Uri.UnescapeDataString(uri.Segments[index]);
-                IWebDavStoreItem nextItem = collection.GetItemByName(segmentName.TrimEnd('/', '\\'));
+                var segmentName = Uri.UnescapeDataString(uri.Segments[index]);
+                var nextItem = collection.GetItemByName(segmentName.TrimEnd('/', '\\'));
                 if (nextItem == null)
                     throw new WebDavNotFoundException(); //throw new WebDavConflictException();
 

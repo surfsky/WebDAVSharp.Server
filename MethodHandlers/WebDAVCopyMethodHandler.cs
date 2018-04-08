@@ -41,7 +41,7 @@ namespace WebDAVSharp.Server.MethodHandlers
         /// <exception cref="WebDAVSharp.Server.Exceptions.WebDavMethodNotAllowedException"></exception>
         public void ProcessRequest(WebDavServer server, IHttpListenerContext context, IWebDavStore store)
         {            
-            IWebDavStoreItem source = context.Request.Url.GetItem(server, store);
+            var source = context.Request.Url.GetItem(server, store);
             if (source is IWebDavStoreDocument || source is IWebDavStoreCollection)
                 CopyItem(server, context, store, source);
             else
@@ -60,14 +60,14 @@ namespace WebDAVSharp.Server.MethodHandlers
         private static void CopyItem(WebDavServer server, IHttpListenerContext context, IWebDavStore store,
             IWebDavStoreItem source)
         {
-            Uri destinationUri = GetDestinationHeader(context.Request);
-            IWebDavStoreCollection destinationParentCollection = GetParentCollection(server, store, destinationUri);
+            var destinationUri = GetDestinationHeader(context.Request);
+            var destinationParentCollection = GetParentCollection(server, store, destinationUri);
 
-            bool copyContent = (GetDepthHeader(context.Request) != 0);
-            bool isNew = true;
+            var copyContent = (GetDepthHeader(context.Request) != 0);
+            var isNew = true;
 
-            string destinationName = Uri.UnescapeDataString(destinationUri.Segments.Last().TrimEnd('/', '\\'));
-            IWebDavStoreItem destination = destinationParentCollection.GetItemByName(destinationName);
+            var destinationName = Uri.UnescapeDataString(destinationUri.Segments.Last().TrimEnd('/', '\\'));
+            var destination = destinationParentCollection.GetItemByName(destinationName);
             
             if (destination != null)
             {

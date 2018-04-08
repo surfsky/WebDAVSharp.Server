@@ -49,7 +49,8 @@ namespace WebDAVSharp.Server.Stores.DiskStore
             _parentCollection = parentCollection;
             _path = path;
             Identity = (WindowsIdentity)Thread.GetData(Thread.GetNamedDataSlot(WebDavServer.HttpUser));
-            Log = LogManager.GetCurrentClassLogger();
+            //Log = LogManager.GetCurrentClassLogger();
+            Log = LogManager.GetLogger(GetType().Name);
         }
 
         /// <summary>
@@ -90,7 +91,7 @@ namespace WebDAVSharp.Server.Stores.DiskStore
             get
             {
                 // get the file attributes for file or directory
-                FileAttributes attr = File.GetAttributes(_path);
+                var attr = File.GetAttributes(_path);
 
                 //detect whether its a directory or file
                 return (attr & FileAttributes.Directory) == FileAttributes.Directory;
@@ -131,7 +132,7 @@ namespace WebDAVSharp.Server.Stores.DiskStore
         {
             get
             {
-                DirectoryInfo dir = new DirectoryInfo(_path);
+                var dir = new DirectoryInfo(_path);
                 return (dir.Attributes & FileAttributes.Hidden) != 0 ? 1 : 0;
             }
         }

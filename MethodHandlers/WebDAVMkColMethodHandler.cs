@@ -45,9 +45,9 @@ namespace WebDAVSharp.Server.MethodHandlers
             if (context.Request.ContentLength64 > 0)
                 throw new WebDavUnsupportedMediaTypeException();
 
-            IWebDavStoreCollection collection = GetParentCollection(server, store, context.Request.Url);
+            var collection = GetParentCollection(server, store, context.Request.Url);
                 
-            string collectionName = Uri.UnescapeDataString(
+            var collectionName = Uri.UnescapeDataString(
                 context.Request.Url.Segments.Last().TrimEnd('/', '\\')
                 );
             if (collection.GetItemByName(collectionName) != null)

@@ -36,12 +36,12 @@ namespace WebDAVSharp.Server.MethodHandlers
         /// </summary>
         private static void ScanAssemblies()
         {
-            IEnumerable<Type> methodHandlerTypes = from type in typeof (WebDavServer).Assembly.GetTypes()
+            var methodHandlerTypes = from type in typeof (WebDavServer).Assembly.GetTypes()
                 where !type.IsAbstract
                 where typeof(IWebDavMethodHandler).IsAssignableFrom(type)
                 select type;
 
-            IEnumerable<IWebDavMethodHandler> methodHandlerInstances =
+            var methodHandlerInstances =
                 from type in methodHandlerTypes
                 select (IWebDavMethodHandler)Activator.CreateInstance(type);
 

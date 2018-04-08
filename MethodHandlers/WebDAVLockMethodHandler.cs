@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Web;
 using System.Xml;
 using Common.Logging;
 using WebDAVSharp.Server.Adapters;
@@ -46,15 +45,16 @@ namespace WebDAVSharp.Server.MethodHandlers
         /// <exception cref="WebDAVSharp.Server.Exceptions.WebDavPreconditionFailedException"></exception>
         public void ProcessRequest(WebDavServer server, IHttpListenerContext context, IWebDavStore store)
         {
-            ILog log = LogManager.GetCurrentClassLogger();
+            //ILog log = LogManager.GetCurrentClassLogger();
+            var log = LogManager.GetLogger(GetType().Name);
 
             /***************************************************************************************************
              * Retreive al the information from the request
              ***************************************************************************************************/
 
             // read the headers
-            int depth = GetDepthHeader(context.Request);
-            string timeout = GetTimeoutHeader(context.Request);
+            var depth = GetDepthHeader(context.Request);
+            var timeout = GetTimeoutHeader(context.Request);
 
             // Initiate the XmlNamespaceManager and the XmlNodes
             XmlNamespaceManager manager = null;
@@ -63,12 +63,12 @@ namespace WebDAVSharp.Server.MethodHandlers
             // try to read the body
             try
             {
-                StreamReader reader = new StreamReader(context.Request.InputStream, Encoding.UTF8);
-                string requestBody = reader.ReadToEnd();
+                var reader = new StreamReader(context.Request.InputStream, Encoding.UTF8);
+                var requestBody = reader.ReadToEnd();
 
                 if (!requestBody.Equals("") && requestBody.Length != 0)
                 {
-                    XmlDocument requestDocument = new XmlDocument();
+                    var requestDocument = new XmlDocument();
                     requestDocument.LoadXml(requestBody);
 
                     if (requestDocument.DocumentElement != null && requestDocument.DocumentElement.LocalName != "prop" &&
@@ -103,15 +103,15 @@ namespace WebDAVSharp.Server.MethodHandlers
              * Lock the file or folder
              ***************************************************************************************************/
 
-            bool isNew = false;
+            var isNew = false;
 
             // Get the parent collection of the item
-            IWebDavStoreCollection collection = GetParentCollection(server, store, context.Request.Url);
+            var collection = GetParentCollection(server, store, context.Request.Url);
 
             try
             {
                 // Get the item from the collection
-                IWebDavStoreItem item = GetItemFromCollection(collection, context.Request.Url);
+                var item = GetItemFromCollection(collection, context.Request.Url);
             }
             catch (Exception)
             {
@@ -126,13 +126,13 @@ namespace WebDAVSharp.Server.MethodHandlers
              ***************************************************************************************************/
 
             // Create the basic response XmlDocument
-            XmlDocument responseDoc = new XmlDocument();
-            string responseXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><D:prop " +
+            var responseDoc = new XmlDocument();
+            var responseXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><D:prop " +
                 "xmlns:D=\"DAV:\"><D:lockdiscovery><D:activelock/></D:lockdiscovery></D:prop>";
             responseDoc.LoadXml(responseXml);
 
             // Select the activelock XmlNode
-            XmlNode activelock = responseDoc.DocumentElement.SelectSingleNode("D:lockdiscovery/D:activelock", manager);
+            var activelock = responseDoc.DocumentElement.SelectSingleNode("D:lockdiscovery/D:activelock", manager);
 
             // Import the given nodes
             activelock.AppendChild(responseDoc.ImportNode(lockscopeNode, true));
@@ -142,17 +142,17 @@ namespace WebDAVSharp.Server.MethodHandlers
             // Add the additional elements, e.g. the header elements
 
             // The timeout element
-            WebDavProperty timeoutProperty = new WebDavProperty("timeout", timeout);
+            var timeoutProperty = new WebDavProperty("timeout", timeout);
             activelock.AppendChild(timeoutProperty.ToXmlElement(responseDoc));
 
             // The depth element
-            WebDavProperty depthProperty = new WebDavProperty("depth", (depth == 0 ? "0" : "Infinity"));
+            var depthProperty = new WebDavProperty("depth", (depth == 0 ? "0" : "Infinity"));
             activelock.AppendChild(depthProperty.ToXmlElement(responseDoc));
             
             // The locktoken element
-            WebDavProperty locktokenProperty = new WebDavProperty("locktoken", "");
-            XmlElement locktokenElement = locktokenProperty.ToXmlElement(responseDoc);
-            WebDavProperty hrefProperty = new WebDavProperty("href", "opaquelocktoken:e71d4fae-5dec-22df-fea5-00a0c93bd5eb1");
+            var locktokenProperty = new WebDavProperty("locktoken", "");
+            var locktokenElement = locktokenProperty.ToXmlElement(responseDoc);
+            var hrefProperty = new WebDavProperty("href", "opaquelocktoken:e71d4fae-5dec-22df-fea5-00a0c93bd5eb1");
             locktokenElement.AppendChild(hrefProperty.ToXmlElement(responseDoc));
             activelock.AppendChild(locktokenElement);
 
@@ -161,22 +161,24 @@ namespace WebDAVSharp.Server.MethodHandlers
              ***************************************************************************************************/
             
             // convert the StringBuilder
-            string resp = responseDoc.InnerXml;
-            byte[] responseBytes = Encoding.UTF8.GetBytes(resp);
+            var resp = responseDoc.InnerXml;
+            var responseBytes = Encoding.UTF8.GetBytes(resp);
 
             if (isNew)
             {
                 // HttpStatusCode doesn't contain WebDav status codes, but HttpWorkerRequest can handle these WebDav status codes
                 context.Response.StatusCode = (int)HttpStatusCode.Created;
-                context.Response.StatusDescription = HttpWorkerRequest.GetStatusDescription((int)HttpStatusCode.Created);
+                //context.Response.StatusDescription = HttpWorkerRequest.GetStatusDescription((int)HttpStatusCode.Created);
+                context.Response.StatusDescription = HttpStatusCode.Created.ToString();
             }
             else
             {
                 // HttpStatusCode doesn't contain WebDav status codes, but HttpWorkerRequest can handle these WebDav status codes
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
-                context.Response.StatusDescription = HttpWorkerRequest.GetStatusDescription((int)HttpStatusCode.OK);
+                //context.Response.StatusDescription = HttpWorkerRequest.GetStatusDescription((int)HttpStatusCode.OK);
+                context.Response.StatusDescription = HttpStatusCode.OK.ToString();
             }
-            
+
 
             // set the headers of the response
             context.Response.ContentLength64 = responseBytes.Length;

@@ -1,8 +1,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Security.Principal;
-using System.Web;
 using WebDAVSharp.Server.Exceptions;
 using WebDAVSharp.Server.Utilities;
 
@@ -44,13 +42,7 @@ namespace WebDAVSharp.Server.Stores.DiskStore
         /// <summary>
         /// Gets the mime type of this <see cref="IWebDavStoreItem" />.
         /// </summary>
-        public string MimeType
-        {
-            get
-            {
-                return MimeMapping.GetMimeMapping(Name);
-            }
-        }
+        public string MimeType => MimeMapping.MimeUtility.GetMimeMapping(Name);
 
         /// <summary>
         /// Gets the etag of this <see cref="IWebDavStoreItem" />.
@@ -85,9 +77,9 @@ namespace WebDAVSharp.Server.Stores.DiskStore
             try
             {
                 // Impersonate the current user and create the file stream for opening the file
-                WindowsImpersonationContext wic = Identity.Impersonate();
+                //WindowsImpersonationContext wic = Identity.Impersonate();
                 stream = new FileStream(ItemPath, FileMode.Open, FileAccess.Read, FileShare.None);
-                wic.Undo();
+                //wic.Undo();
             }
             catch
             {
@@ -110,7 +102,7 @@ namespace WebDAVSharp.Server.Stores.DiskStore
         {
             if (append)
             {
-                FileStream result = new FileStream(ItemPath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+                var result = new FileStream(ItemPath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
                 result.Seek(0, SeekOrigin.End);
                 return result;
             }
@@ -119,9 +111,9 @@ namespace WebDAVSharp.Server.Stores.DiskStore
             try
             {
                 // Impersonate the current user and create the file stream for writing the file
-                WindowsImpersonationContext wic = Identity.Impersonate();
+                //WindowsImpersonationContext wic = Identity.Impersonate();
                 stream = new FileStream(ItemPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
-                wic.Undo();
+                //wic.Undo();
             }
             catch
             {

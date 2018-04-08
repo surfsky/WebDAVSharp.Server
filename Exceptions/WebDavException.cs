@@ -2,7 +2,6 @@ using System;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
-using System.Web;
 
 namespace WebDAVSharp.Server.Exceptions
 {
@@ -56,10 +55,10 @@ namespace WebDAVSharp.Server.Exceptions
         /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
         /// <exception cref="T:System.ArgumentNullException">The <paramref name="info" /> parameter is null.</exception>
         /// <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult" /> is zero (0).</exception>
-        protected WebDavException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
+        protected WebDavException(SerializationInfo info, StreamingContext context) 
+            : base(info.GetInt32(StatusCodeKey), context.ToString())
         {
-            StatusCode = info.GetInt32(StatusCodeKey);
+            WebDavStatusCode = info.GetInt32(StatusCodeKey);
             StatusDescription = info.GetString(StatusDescriptionKey);
         }
 
@@ -73,10 +72,13 @@ namespace WebDAVSharp.Server.Exceptions
         /// or 
         /// <c>null</c> if no inner exception is specified.</param>
         public WebDavException(HttpStatusCode statusCode, string message = null, Exception innerException = null)
-            : base(GetMessage(statusCode, message), innerException)
+            : base(statusCode, innerException?.Message)
         {
-            StatusCode = (int)statusCode;
-            StatusDescription = HttpWorkerRequest.GetStatusDescription((int)statusCode);
+            // Using Dot.Net Core APIs
+            //StatusCode = (int)statusCode;
+            //StatusDescription = HttpWorkerRequest.GetStatusDescription((int)statusCode);
+            WebDavStatusCode = (int)statusCode;
+            StatusDescription = ((HttpStatusCode)statusCode).ToString(); // 404 -> "NotFound"
         }
 
         /// <summary>
@@ -85,14 +87,13 @@ namespace WebDAVSharp.Server.Exceptions
         /// <value>
         /// The status code.
         /// </value>
-        public int StatusCode
+        public int WebDavStatusCode
         {
             get;
-            private set;
         }
 
         /// <summary>
-        /// Gets the status description for the HTTP <see cref="StatusCode" />.
+        /// Gets the status description for the HTTP <see cref="WebDavStatusCode" />.
         /// </summary>
         /// <value>
         /// The status description.
@@ -113,7 +114,7 @@ namespace WebDAVSharp.Server.Exceptions
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue(StatusCodeKey, StatusCode);
+            info.AddValue(StatusCodeKey, WebDavStatusCode);
             info.AddValue(StatusDescriptionKey, StatusDescription);
         }
 
@@ -125,11 +126,11 @@ namespace WebDAVSharp.Server.Exceptions
         /// <returns>The message and the status description.</returns>
         private static string GetMessage(HttpStatusCode statusCode, string message)
         {
-            string format = "%s";
+            var format = "%s";
             if (!String.IsNullOrWhiteSpace(message))
                 format = message;
 
-            return format.Replace("%s", HttpWorkerRequest.GetStatusDescription((int)statusCode));
+            return format.Replace("%s", ((HttpStatusCode)statusCode).ToString());
         }
     }
 }

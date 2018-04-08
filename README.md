@@ -1,9 +1,11 @@
 WebDAVSharp.Server
 ==================
 
+Ported WebDAV# server to Dot.Net Core 2.0 [Adrian].
+
 A WebDAV server, coded in C#, which can be used for various WebDAV .NET applications.
 
-WebDAV# is developed in the .NET Framework 4.5
+Originaly WebDAV# is developed in the .NET Framework 4.5
 
 ## SQLExample ##
 
@@ -26,3 +28,10 @@ The last changes have been contributed by [Vincent Gee (Winterleaf)][6].
   [5]: http://xploreplus.com/
   [6]: https://github.com/Winterleaf
   [7]: https://github.com/Winterleaf/Winterleaf-WebDavSharp.SQLExample
+
+
+Disclaimer of warranties. The developer hereby expressly disclaims all warranties, either expressed or implied, 
+including any implied warranty of merchantability or fitness for a particular purpose. In no event shall be liable 
+for any special, indirect or consequential damages or any damages whatsoever resulting from loss of use, 
+data or profits, whether in an action of contract, negligence or other tortious  action, arising out of or 
+in connection with the use or performance of this software.

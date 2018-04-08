@@ -53,11 +53,11 @@ namespace WebDAVSharp.Server.Stores.BaseClasses
 
             set
             {
-                string fixedName = (value ?? string.Empty).Trim();
+                var fixedName = (value ?? string.Empty).Trim();
                 if (fixedName == _name) return;
                 if (!OnNameChanging(_name, fixedName))
                     throw new WebDavForbiddenException();
-                string oldName = _name;
+                var oldName = _name;
                 _name = fixedName;
                 OnNameChanged(oldName, _name);
             }

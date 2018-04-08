@@ -69,7 +69,7 @@ namespace WebDAVSharp.Server
             }
             methodHandlers = methodHandlers ?? WebDavMethodHandlers.BuiltIn;
 
-            IWebDavMethodHandler[] webDavMethodHandlers = methodHandlers as IWebDavMethodHandler[] ?? methodHandlers.ToArray();
+            var webDavMethodHandlers = methodHandlers as IWebDavMethodHandler[] ?? methodHandlers.ToArray();
 
             if (!webDavMethodHandlers.Any())
                 throw new ArgumentException("The methodHandlers collection is empty", "methodHandlers");
@@ -87,7 +87,8 @@ namespace WebDAVSharp.Server
                     methodHandler
                 };
             _methodHandlers = handlersWithNames.ToDictionary(v => v.name, v => v.methodHandler);
-            _log = LogManager.GetCurrentClassLogger();
+            //_log = LogManager.GetCurrentClassLogger();
+            _log = LogManager.GetLogger(GetType().Name);
             }
 
         /// <summary>
@@ -99,7 +100,7 @@ namespace WebDAVSharp.Server
         /// <value>
         /// The listener.
         /// </value>
-        internal IHttpListener Listener
+        public IHttpListener Listener
         {
             get
             {
@@ -210,7 +211,7 @@ namespace WebDAVSharp.Server
                     if (_stopEvent.WaitOne(0))
                         return;
 
-                    IHttpListenerContext context = Listener.GetContext(_stopEvent);
+                    var context = Listener.GetContext(_stopEvent);
                     if (context == null)
                     {
                         _log.Debug("Exiting thread");
@@ -239,7 +240,7 @@ namespace WebDAVSharp.Server
         private void ProcessRequest(object state)
         {
 
-            IHttpListenerContext context = (IHttpListenerContext)state;
+            var context = (IHttpListenerContext)state;
 
             // For authentication
             Thread.SetData(Thread.GetNamedDataSlot(HttpUser), context.AdaptedInstance.User.Identity);
@@ -249,7 +250,7 @@ namespace WebDAVSharp.Server
             {
                 try
                 {
-                    string method = context.Request.HttpMethod;
+                    var method = context.Request.HttpMethod;
                     IWebDavMethodHandler methodHandler;
                     if (!_methodHandlers.TryGetValue(method, out methodHandler))
                         throw new WebDavMethodNotAllowedException(string.Format(CultureInfo.InvariantCulture, "%s ({0})", context.Request.HttpMethod));
@@ -290,12 +291,12 @@ namespace WebDAVSharp.Server
             }
             catch (WebDavException ex)
             {
-                _log.Warn(ex.StatusCode + " " + ex.Message);
-                context.Response.StatusCode = ex.StatusCode;
+                _log.Warn(ex.WebDavStatusCode + " " + ex.Message);
+                context.Response.StatusCode = ex.WebDavStatusCode;
                 context.Response.StatusDescription = ex.StatusDescription;
                 if (ex.Message != context.Response.StatusDescription)
                 {
-                    byte[] buffer = Encoding.UTF8.GetBytes(ex.Message);
+                    var buffer = Encoding.UTF8.GetBytes(ex.Message);
                     context.Response.ContentEncoding = Encoding.UTF8;
                     context.Response.ContentLength64 = buffer.Length;
                     context.Response.OutputStream.Write(buffer, 0, buffer.Length);

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using WebDAVSharp.Server.Adapters;
@@ -44,12 +43,12 @@ namespace WebDAVSharp.Server.MethodHandlers
         public void ProcessRequest(WebDavServer server, IHttpListenerContext context, IWebDavStore store)
         {
             // Get the parent collection
-            IWebDavStoreCollection parentCollection = GetParentCollection(server, store, context.Request.Url);
+            var parentCollection = GetParentCollection(server, store, context.Request.Url);
 
             // Gets the item name from the url
-            string itemName = Uri.UnescapeDataString(context.Request.Url.Segments.Last().TrimEnd('/', '\\'));
+            var itemName = Uri.UnescapeDataString(context.Request.Url.Segments.Last().TrimEnd('/', '\\'));
 
-            IWebDavStoreItem item = parentCollection.GetItemByName(itemName);
+            var item = parentCollection.GetItemByName(itemName);
             IWebDavStoreDocument doc;
             if (item != null)
             {
@@ -65,14 +64,14 @@ namespace WebDAVSharp.Server.MethodHandlers
             if (context.Request.ContentLength64 < 0)
                 throw new WebDavLengthRequiredException();
 
-            using (Stream stream = doc.OpenWriteStream(false))
+            using (var stream = doc.OpenWriteStream(false))
             {
-                long left = context.Request.ContentLength64;
-                byte[] buffer = new byte[4096];
+                var left = context.Request.ContentLength64;
+                var buffer = new byte[4096];
                 while (left > 0)
                 {
-                    int toRead = Convert.ToInt32(Math.Min(left, buffer.Length));
-                    int inBuffer = context.Request.InputStream.Read(buffer, 0, toRead);
+                    var toRead = Convert.ToInt32(Math.Min(left, buffer.Length));
+                    var inBuffer = context.Request.InputStream.Read(buffer, 0, toRead);
                     stream.Write(buffer, 0, inBuffer);
 
                     left -= inBuffer;

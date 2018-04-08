@@ -1,5 +1,4 @@
 using System;
-using System.Web;
 
 namespace WebDAVSharp.Server.Stores.BaseClasses
 {
@@ -30,7 +29,8 @@ namespace WebDAVSharp.Server.Stores.BaseClasses
         {
             get
             {
-                return MimeMapping.GetMimeMapping(Name);
+                //return MimeMapping.GetMimeMapping(Name);
+                return MimeMapping.MimeUtility.GetMimeMapping(Name);
             }
         }
 

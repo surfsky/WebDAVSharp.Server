@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Xml;
 using Common.Logging;
 using WebDAVSharp.Server.Adapters;
@@ -44,14 +43,15 @@ namespace WebDAVSharp.Server.MethodHandlers
         /// <param name="store">The <see cref="IWebDavStore" /> that the <see cref="WebDavServer" /> is hosting.</param>
         public void ProcessRequest(WebDavServer server, IHttpListenerContext context, IWebDavStore store)
         {
-            ILog log = LogManager.GetCurrentClassLogger();
+            //ILog log = LogManager.GetCurrentClassLogger();
+            var log = LogManager.GetLogger(GetType().Name);
 
             /***************************************************************************************************
              * Retreive al the information from the request
              ***************************************************************************************************/
 
             // Get the URI to the location
-            Uri requestUri = context.Request.Url;
+            var requestUri = context.Request.Url;
 
             // Initiate the XmlNamespaceManager and the XmlNodes
             XmlNamespaceManager manager = null;
@@ -60,12 +60,12 @@ namespace WebDAVSharp.Server.MethodHandlers
             // try to read the body
             try
             {
-                StreamReader reader = new StreamReader(context.Request.InputStream, Encoding.UTF8);
-                string requestBody = reader.ReadToEnd();
+                var reader = new StreamReader(context.Request.InputStream, Encoding.UTF8);
+                var requestBody = reader.ReadToEnd();
 
                 if (!String.IsNullOrEmpty(requestBody))
                 {
-                    XmlDocument requestDocument = new XmlDocument();
+                    var requestDocument = new XmlDocument();
                     requestDocument.LoadXml(requestBody);
 
                     if (requestDocument.DocumentElement != null)
@@ -95,12 +95,12 @@ namespace WebDAVSharp.Server.MethodHandlers
              ***************************************************************************************************/
 
             // Get the parent collection of the item
-            IWebDavStoreCollection collection = GetParentCollection(server, store, context.Request.Url);
+            var collection = GetParentCollection(server, store, context.Request.Url);
 
             // Get the item from the collection
-            IWebDavStoreItem item = GetItemFromCollection(collection, context.Request.Url);
+            var item = GetItemFromCollection(collection, context.Request.Url);
 
-            FileInfo fileInfo = new FileInfo(item.ItemPath);
+            var fileInfo = new FileInfo(item.ItemPath);
 
             if (propNode != null && fileInfo.Exists)
             {
@@ -131,32 +131,34 @@ namespace WebDAVSharp.Server.MethodHandlers
              ***************************************************************************************************/
 
             // Create the basic response XmlDocument
-            XmlDocument responseDoc = new XmlDocument();
+            var responseDoc = new XmlDocument();
             const string responseXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><D:multistatus " +
                                        "xmlns:Z=\"urn:schemas-microsoft-com:\" xmlns:D=\"DAV:\">" +
                                        "<D:response></D:response></D:multistatus>";
             responseDoc.LoadXml(responseXml);
 
             // Select the response node
-            XmlNode responseNode = responseDoc.DocumentElement.SelectSingleNode("D:response", manager);
+            var responseNode = responseDoc.DocumentElement.SelectSingleNode("D:response", manager);
 
             // Add the elements
 
             // The href element
-            WebDavProperty hrefProperty = new WebDavProperty("href", requestUri.ToString());
+            var hrefProperty = new WebDavProperty("href", requestUri.ToString());
             responseNode.AppendChild(hrefProperty.ToXmlElement(responseDoc));
 
             // The propstat element
-            WebDavProperty propstatProperty = new WebDavProperty("propstat", "");
-            XmlElement propstatElement = propstatProperty.ToXmlElement(responseDoc);
+            var propstatProperty = new WebDavProperty("propstat", "");
+            var propstatElement = propstatProperty.ToXmlElement(responseDoc);
 
+            // Using Dot.Net Core APIs
             // The propstat/status element
-            WebDavProperty statusProperty = new WebDavProperty("status", "HTTP/1.1 " + context.Response.StatusCode + " " +
-                    HttpWorkerRequest.GetStatusDescription(context.Response.StatusCode));
+            //WebDavProperty statusProperty = new WebDavProperty("status", "HTTP/1.1 " + context.Response.StatusCode + " " + HttpWorkerRequest.GetStatusDescription(context.Response.StatusCode));
+            var HttpWorkerRequest = "HTTP/1.1 " + context.Response.StatusCode + " " + context.Response.StatusDescription;
+            var statusProperty = new WebDavProperty("status", HttpWorkerRequest);
             propstatElement.AppendChild(statusProperty.ToXmlElement(responseDoc));
 
             // The other propstat children
-            foreach (WebDavProperty property in from XmlNode child in propNode.ChildNodes
+            foreach (var property in from XmlNode child in propNode.ChildNodes
                 where child.Name.ToLower()
                     .Contains("creationtime") || child.Name.ToLower()
                         .Contains("fileattributes") || child.Name.ToLower()
@@ -175,13 +177,14 @@ namespace WebDAVSharp.Server.MethodHandlers
             ***************************************************************************************************/
             
             // convert the StringBuilder
-            string resp = responseDoc.InnerXml;
-            byte[] responseBytes = Encoding.UTF8.GetBytes(resp);
+            var resp = responseDoc.InnerXml;
+            var responseBytes = Encoding.UTF8.GetBytes(resp);
 
-
+            // Using Dot.Net Core APIs
             // HttpStatusCode doesn't contain WebDav status codes, but HttpWorkerRequest can handle these WebDav status codes
             context.Response.StatusCode = (int)WebDavStatusCode.MultiStatus;
-            context.Response.StatusDescription = HttpWorkerRequest.GetStatusDescription((int)WebDavStatusCode.MultiStatus);
+            //context.Response.StatusDescription = HttpWorkerRequest.GetStatusDescription((int)WebDavStatusCode.MultiStatus);
+            context.Response.StatusDescription = WebDavStatusCode.MultiStatus.ToString();
 
             // set the headers of the response
             context.Response.ContentLength64 = responseBytes.Length;

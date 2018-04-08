@@ -121,7 +121,7 @@ namespace WebDAVSharp.Server
         /// </returns>
         public XmlDocumentFragment ToXmlDocumentFragment(XmlDocument doc)
         {
-            XmlDocumentFragment fragment = doc.CreateDocumentFragment();
+            var fragment = doc.CreateDocumentFragment();
             fragment.InnerXml = ToString();
             return fragment;
         }
@@ -138,10 +138,10 @@ namespace WebDAVSharp.Server
             // if the DocumentElement is not null, return the XmlElement with namespace
             if (doc.DocumentElement == null) return doc.CreateElement(Name);
             // Get the prefix of the namespace
-            string prefix = doc.DocumentElement.GetPrefixOfNamespace(Namespace);
+            var prefix = doc.DocumentElement.GetPrefixOfNamespace(Namespace);
 
             // Create the element
-            XmlElement element = doc.CreateElement(prefix, Name, Namespace);
+            var element = doc.CreateElement(prefix, Name, Namespace);
             element.InnerText = Value;
             return element;
             // else, return XmlElement without namespace

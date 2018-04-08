@@ -31,7 +31,7 @@ namespace WebDAVSharp.Server.MethodHandlers
         /// <exception cref="WebDavConflictException">When the parent collection doesn't exist</exception>
         public static IWebDavStoreCollection GetParentCollection(WebDavServer server, IWebDavStore store, Uri childUri)
         {
-            Uri parentCollectionUri = childUri.GetParentUri();
+            var parentCollectionUri = childUri.GetParentUri();
             IWebDavStoreCollection collection;
             try
             {
@@ -94,7 +94,7 @@ namespace WebDAVSharp.Server.MethodHandlers
         public static int GetDepthHeader(IHttpListenerRequest request)
         {
             // get the value of the depth header as a string
-            string depth = request.Headers["Depth"];
+            var depth = request.Headers["Depth"];
 
             // check if the string is valid or not infinity
             // if so, try to parse it to an int
@@ -117,7 +117,7 @@ namespace WebDAVSharp.Server.MethodHandlers
         public static bool GetOverwriteHeader(IHttpListenerRequest request)
         {
             // get the value of the Overwrite header as a string
-            string overwrite = request.Headers["Overwrite"];
+            var overwrite = request.Headers["Overwrite"];
 
             // check if the string is valid and if it equals T
             return overwrite != null && overwrite.Equals("T");
@@ -132,7 +132,7 @@ namespace WebDAVSharp.Server.MethodHandlers
         public static string GetTimeoutHeader(IHttpListenerRequest request)
         {
             // get the value of the timeout header as a string
-            string timeout = request.Headers["Timeout"];
+            var timeout = request.Headers["Timeout"];
 
             // check if the string is valid or not infinity
             // if so, try to parse it to an int
@@ -151,7 +151,7 @@ namespace WebDAVSharp.Server.MethodHandlers
         public static Uri GetDestinationHeader(IHttpListenerRequest request)
         {
             // get the value of the Destination header as a string
-            string destinationUri = request.Headers["Destination"];
+            var destinationUri = request.Headers["Destination"];
 
             // check if the string is valid 
             if (!String.IsNullOrEmpty(destinationUri))
