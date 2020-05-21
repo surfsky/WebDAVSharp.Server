@@ -1,7 +1,7 @@
 WebDAVSharp.Server
 ==================
 
-Ported WebDAV# server to Dot.Net Core 2.0 [Adrian].
+Ported WebDAV# server to Dot.Net netframework and netcore 3.0 [Adrian].
 
 A WebDAV server, coded in C#, which can be used for various WebDAV .NET applications.
 
