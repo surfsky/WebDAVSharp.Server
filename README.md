@@ -1,37 +1,54 @@
-WebDAVSharp.Server
-==================
+# WebDAVSharpCore
 
-Ported WebDAV# server to Dot.Net netframework and netcore 3.0 [Adrian].
+A c# WebDAV Server and Client, support netframework and netstandard.
 
-A WebDAV server, coded in C#, which can be used for various WebDAV .NET applications.
+# Reference
 
-Originaly WebDAV# is developed in the .NET Framework 4.5
+- https://github.com/WebDAVSharp/WebDAVSharp.Server
+- https://github.com/yar229/WebDavMailRuCloud
 
-## SQLExample ##
+# Solution
 
-A SQL version of the server has been developed by [Winterleaf][6] and can be found at [this repository][7]
-
-## Developed by ##
-
-The WebDAV server implementation was based on another open source project, also called WebDAV#.
-The maintainer of the project is [Lasse V. Karlsen][1] and the code can be found on [CodePlex][2].
-
-This version of WebDAV# has been developed by [Lieven Janssen][3] and [Ewout Merckx][4] at [Xplore+][5].
-
-The last changes have been contributed by [Vincent Gee (Winterleaf)][6].
+- WebDAVSharp.Server       : webdav server lib for netframework 4.5
+- WebDAVSharp.Service      : console webdav service
+- WebDAVSharp.Client       : console webdav client
+- WebDAVSharp.ServerCore   : webdav server lib for netstandard
+- WebDAVSharp.Site         : aspnetcore site for webdav
 
 
-  [1]: http://www.vkarlsen.no/
-  [2]: https://webdavsharp.codeplex.com/
-  [3]: https://www.linkedin.com/in/lievenjanssen/
-  [4]: https://www.linkedin.com/in/ewoutmerckx
-  [5]: http://xploreplus.com/
-  [6]: https://github.com/Winterleaf
-  [7]: https://github.com/Winterleaf/Winterleaf-WebDavSharp.SQLExample
 
-
-Disclaimer of warranties. The developer hereby expressly disclaims all warranties, either expressed or implied, 
-including any implied warranty of merchantability or fitness for a particular purpose. In no event shall be liable 
-for any special, indirect or consequential damages or any damages whatsoever resulting from loss of use, 
-data or profits, whether in an action of contract, negligence or other tortious  action, arising out of or 
-in connection with the use or performance of this software.
+# Tasks
+- [x] Remake solution
+  - [x] WebDAVSharp.Server   : lib
+  - [x] WebDAVSharp.Service  : console service
+  - [x] WebDAVSharp.Client   : console client
+- [x] Modify project WebDAVSharp.Service
+  - [x] Run suceess.
+  - [x] Set port and root path.
+- [x] RaiDrive client to link to server
+  - [x] Success: http://localhost:8880, windows username and password.
+- [x] Modify project WebDAVSharp.Client
+  - [x] Run success.
+  - [x] Support user, password, domain parameters
+  - [x] Create WebDavClient class
+- [ ] Create project WebDAVSharp.ServerCore
+  - [ ] Transfer to supporting netstandard 2.0
+  - [ ] Modify Log service
+  - [ ] Comile success
+- [ ] Create project WebDAVSharp.Site
+  - [ ] Login
+  - [ ] Show dir
+  - [ ] Download file
+  - [ ] Upload file
+  - [ ] Lock and unlock file
+- [ ] Create project WebDAVBlog
+    - [ ] 数据库支持
+    - [ ] 全文检索
+    - [ ] 用户目录隔离和配额
+    - [ ] 上传文档
+    - [ ] 预览文档
+      - [ ] Office
+      - [ ] xmind
+      - [ ] markdown
+    - [ ] 发布为网页
+    - [ ] 云备份

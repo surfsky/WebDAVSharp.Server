@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDAVSharp.ServerCore", "WebDAVSharp.ServerStd\WebDAVSharp.ServerCore.csproj", "{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAVSharp.Service", "WebDAVSharp.Service\WebDAVSharp.Service.csproj", "{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAVSharp.Client", "WebDAVSharp.Client\WebDAVSharp.Client.csproj", "{0F50A483-D669-4258-B471-E815E1CFA8FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAVSharp.Server", "WebDAVSharp.Server\WebDAVSharp.Server.csproj", "{BE8A04DD-C704-40B2-8AD2-3655B429FAE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDAVSharp.Site", "WebDAVSharp.Site\WebDAVSharp.Site.csproj", "{9D480BFB-AC92-4529-8D08-7BE215238924}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6345B101-4D0C-499A-8604-D782563C3107}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		ReleaseBinaries|Any CPU = ReleaseBinaries|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
+		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
+		{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
+		{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
+		{0F50A483-D669-4258-B471-E815E1CFA8FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F50A483-D669-4258-B471-E815E1CFA8FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F50A483-D669-4258-B471-E815E1CFA8FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F50A483-D669-4258-B471-E815E1CFA8FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F50A483-D669-4258-B471-E815E1CFA8FA}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
+		{0F50A483-D669-4258-B471-E815E1CFA8FA}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
+		{BE8A04DD-C704-40B2-8AD2-3655B429FAE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE8A04DD-C704-40B2-8AD2-3655B429FAE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE8A04DD-C704-40B2-8AD2-3655B429FAE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE8A04DD-C704-40B2-8AD2-3655B429FAE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE8A04DD-C704-40B2-8AD2-3655B429FAE1}.ReleaseBinaries|Any CPU.ActiveCfg = ReleaseBinaries|Any CPU
+		{BE8A04DD-C704-40B2-8AD2-3655B429FAE1}.ReleaseBinaries|Any CPU.Build.0 = ReleaseBinaries|Any CPU
+		{9D480BFB-AC92-4529-8D08-7BE215238924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D480BFB-AC92-4529-8D08-7BE215238924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D480BFB-AC92-4529-8D08-7BE215238924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D480BFB-AC92-4529-8D08-7BE215238924}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D480BFB-AC92-4529-8D08-7BE215238924}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
+		{9D480BFB-AC92-4529-8D08-7BE215238924}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AABC0B51-2CF9-40CF-8946-D89F73D563B4}
+	EndGlobalSection
+EndGlobal

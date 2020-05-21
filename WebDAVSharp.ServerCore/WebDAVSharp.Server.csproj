@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RuntimeIdentifiers>win10-x64,osx-x64</RuntimeIdentifiers>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+    <Description>Adrian Filip ported version of WebDAV# https://github.com/WebDAVSharp to Dot.Net Core</Description>
+    <Copyright></Copyright>
+    <Authors>Adrian Filip</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Common.Logging" Version="3.4.1" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="2.0.0-preview1-26216-02" />
+    <PackageReference Include="MimeMapping" Version="1.0.1.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Remove="Program.cs" />
+  </ItemGroup>
+</Project>

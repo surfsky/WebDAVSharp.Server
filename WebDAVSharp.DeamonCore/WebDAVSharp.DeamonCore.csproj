@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="Framework\WindowsServiceHarness.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Framework\WindowsServiceHarness.Designer.cs">
+      <DependentUpon>WindowsServiceHarness.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Framework\WindowsServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Framework\WindowsServiceInstaller.Designer.cs">
+      <DependentUpon>WindowsServiceInstaller.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>
