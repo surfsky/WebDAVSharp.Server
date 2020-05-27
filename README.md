@@ -6,22 +6,30 @@ A c# WebDAV Server and Client, support netframework and netstandard.
 
 - https://github.com/WebDAVSharp/WebDAVSharp.Server
 - https://github.com/yar229/WebDavMailRuCloud
+- https://github.com/Winterleaf/Winterleaf-WebDavSharp.SQLExample
 
-# Solution
 
-- WebDAVSharp.Server       : webdav server lib for netframework 4.5
-- WebDAVSharp.Service      : console webdav service
-- WebDAVSharp.Client       : console webdav client
-- WebDAVSharp.ServerCore   : webdav server lib for netstandard
-- WebDAVSharp.Site         : aspnetcore site for webdav
+# Projects
+
+NetFramework
+  - WebDAVSharp.Server       : webdav server lib for netframework 4.5
+  - WebDAVSharp.Service      : console webdav service
+  - WebDAVSharp.Client       : console webdav client
+
+NetCore
+  - WebDAVSharp.ServerV2     : webdav server lib for netcore app 2.0
+  - WebDAVSharp.ServerV3     : webdav server lib for netcore app 3.0(developing)
+  - WebDAVSharp.Site         : aspnetcore site for webdav(developing)
 
 
 
 # Tasks
-- [x] Remake solution
-  - [x] WebDAVSharp.Server   : lib
+- [x] All-in-one solution
+  - [x] WebDAVSharp.Server   : webdav server lib for netfx
   - [x] WebDAVSharp.Service  : console service
   - [x] WebDAVSharp.Client   : console client
+  - [x] WebDAVSharp.ServerV2 : webdav server lib for netcoreapp 2
+  - [x] WebDAVSharp.ServerV3 : webdav server lib for netcoreapp 3
 - [x] Modify project WebDAVSharp.Service
   - [x] Run suceess.
   - [x] Set port and root path.
@@ -31,24 +39,16 @@ A c# WebDAV Server and Client, support netframework and netstandard.
   - [x] Run success.
   - [x] Support user, password, domain parameters
   - [x] Create WebDavClient class
-- [ ] Create project WebDAVSharp.ServerCore
-  - [ ] Transfer to supporting netstandard 2.0
-  - [ ] Modify Log service
-  - [ ] Comile success
+- [ ] Create project WebDAVSharp.ServerV3
+  - [x] Transfer to supporting netcore app v3.1
+  - [x] Comile success
+  - [ ] Change Log to serilog(Microsoft.Extensions.Logging)
+  - [ ] Change user to db store, not windows users.
 - [ ] Create project WebDAVSharp.Site
   - [ ] Login
   - [ ] Show dir
   - [ ] Download file
   - [ ] Upload file
   - [ ] Lock and unlock file
-- [ ] Create project WebDAVBlog
-    - [ ] 数据库支持
-    - [ ] 全文检索
-    - [ ] 用户目录隔离和配额
-    - [ ] 上传文档
-    - [ ] 预览文档
-      - [ ] Office
-      - [ ] xmind
-      - [ ] markdown
-    - [ ] 发布为网页
-    - [ ] 云备份
+
+

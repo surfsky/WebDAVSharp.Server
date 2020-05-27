@@ -3,20 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDAVSharp.ServerCore", "WebDAVSharp.ServerStd\WebDAVSharp.ServerCore.csproj", "{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAVSharp.Service", "NetFramework\WebDAVSharp.Service\WebDAVSharp.Service.csproj", "{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAVSharp.Service", "WebDAVSharp.Service\WebDAVSharp.Service.csproj", "{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAVSharp.Client", "NetFramework\WebDAVSharp.Client\WebDAVSharp.Client.csproj", "{0F50A483-D669-4258-B471-E815E1CFA8FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAVSharp.Client", "WebDAVSharp.Client\WebDAVSharp.Client.csproj", "{0F50A483-D669-4258-B471-E815E1CFA8FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAVSharp.Server", "NetFramework\WebDAVSharp.Server\WebDAVSharp.Server.csproj", "{BE8A04DD-C704-40B2-8AD2-3655B429FAE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAVSharp.Server", "WebDAVSharp.Server\WebDAVSharp.Server.csproj", "{BE8A04DD-C704-40B2-8AD2-3655B429FAE1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDAVSharp.Site", "WebDAVSharp.Site\WebDAVSharp.Site.csproj", "{9D480BFB-AC92-4529-8D08-7BE215238924}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDAVSharp.Site", "NetCore\WebDAVSharp.Site\WebDAVSharp.Site.csproj", "{9D480BFB-AC92-4529-8D08-7BE215238924}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6345B101-4D0C-499A-8604-D782563C3107}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.md = Readme.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetFramework", "NetFramework", "{785549CE-7629-412C-91CC-1AF5B92BEC24}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetCore", "NetCore", "{2FDCC27F-2835-4F04-8495-989B4073FD00}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDAVSharp.ServerV2", "NetCore\WebDAVSharp.ServerV2\WebDAVSharp.ServerV2.csproj", "{3A5B0B32-2A3B-44A0-9584-A4005CFFC6AC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDAVSharp.ServerV3", "NetCore\WebDAVSharp.ServerV3\WebDAVSharp.ServerV3.csproj", "{4932C406-CE8B-4DC0-B66B-1419DC127174}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,12 +31,6 @@ Global
 		ReleaseBinaries|Any CPU = ReleaseBinaries|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
-		{7F86DE21-08F3-4ED9-9F9E-245C55817B2F}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
 		{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,9 +55,29 @@ Global
 		{9D480BFB-AC92-4529-8D08-7BE215238924}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9D480BFB-AC92-4529-8D08-7BE215238924}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
 		{9D480BFB-AC92-4529-8D08-7BE215238924}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
+		{3A5B0B32-2A3B-44A0-9584-A4005CFFC6AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A5B0B32-2A3B-44A0-9584-A4005CFFC6AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A5B0B32-2A3B-44A0-9584-A4005CFFC6AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A5B0B32-2A3B-44A0-9584-A4005CFFC6AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A5B0B32-2A3B-44A0-9584-A4005CFFC6AC}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
+		{3A5B0B32-2A3B-44A0-9584-A4005CFFC6AC}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
+		{4932C406-CE8B-4DC0-B66B-1419DC127174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4932C406-CE8B-4DC0-B66B-1419DC127174}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4932C406-CE8B-4DC0-B66B-1419DC127174}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4932C406-CE8B-4DC0-B66B-1419DC127174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4932C406-CE8B-4DC0-B66B-1419DC127174}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
+		{4932C406-CE8B-4DC0-B66B-1419DC127174}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7A312385-A2F0-4C71-9B7D-A22AB0AA7A00} = {785549CE-7629-412C-91CC-1AF5B92BEC24}
+		{0F50A483-D669-4258-B471-E815E1CFA8FA} = {785549CE-7629-412C-91CC-1AF5B92BEC24}
+		{BE8A04DD-C704-40B2-8AD2-3655B429FAE1} = {785549CE-7629-412C-91CC-1AF5B92BEC24}
+		{9D480BFB-AC92-4529-8D08-7BE215238924} = {2FDCC27F-2835-4F04-8495-989B4073FD00}
+		{3A5B0B32-2A3B-44A0-9584-A4005CFFC6AC} = {2FDCC27F-2835-4F04-8495-989B4073FD00}
+		{4932C406-CE8B-4DC0-B66B-1419DC127174} = {2FDCC27F-2835-4F04-8495-989B4073FD00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AABC0B51-2CF9-40CF-8946-D89F73D563B4}
