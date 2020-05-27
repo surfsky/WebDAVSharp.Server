@@ -1,6 +1,6 @@
 # WebDAVSharpCore
 
-A c# WebDAV Server and Client, support netframework and netstandard.
+A c# WebDAV Server and Client, support netframework and netcore app.
 
 # Reference
 
@@ -34,7 +34,7 @@ NetCore
   - [x] Run suceess.
   - [x] Set port and root path.
 - [x] RaiDrive client to link to server
-  - [x] Success: http://localhost:8880, windows username and password.
+  - [x] Success: http://localhost:8880, using windows username and password.
 - [x] Modify project WebDAVSharp.Client
   - [x] Run success.
   - [x] Support user, password, domain parameters
@@ -46,9 +46,12 @@ NetCore
   - [ ] Change user to db store, not windows users.
 - [ ] Create project WebDAVSharp.Site
   - [ ] Login
-  - [ ] Show dir
-  - [ ] Download file
-  - [ ] Upload file
-  - [ ] Lock and unlock file
+  - [ ] Dir
+  - [ ] Download
+  - [ ] Upload
+  - [ ] Rename
+  - [ ] Move
+  - [ ] Lock/Unlock
+ 
 
 
